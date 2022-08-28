@@ -1,3 +1,16 @@
 h1 {
-    color: red;
+    margin-bottom: 20px;
+}
+
+.accordion-button {
+    padding: 0;
+    height: 50px;
+}
+
+.accordion-body ul {
+   list-style: none;
+}
+
+.accordion-body span {
+    margin-left: 5px;
 }
