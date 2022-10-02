@@ -1,0 +1,35 @@
+@model Astromedia_admin.DTO.AstroDTO;
+@{
+    ViewData["Title"] = "Cadastro de Astros";
+}
+
+<h1>Cadastro de Astro</h1>
+
+<form action="CadastrarAstro" class="container mt-3" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-error"></div>
+    <div class="mb-3 row">
+        <div class="col-4">
+            <label class="form-label" asp-for="Nome">Nome</label>
+            <input type="text" class="form-control" asp-for="Nome" required>
+            @Html.ValidationMessageFor(model => model.Nome)
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-4">
+            <label class="form-label" asp-for="Foto">Foto</label>
+            <input type="url" class="form-control" asp-for="Foto" required >
+            @Html.ValidationMessageFor(model => model.Foto)
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-4 form-group">
+            <label class="form-label" asp-for="Curiosidades">Curiosidades</label>
+            <textarea class="form-control" asp-for="Curiosidades" required></textarea>
+            @Html.ValidationMessageFor(model => model.Curiosidades)
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
