@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Astromedia_admin.DTO;
 using Astromedia_admin.Models;
+using Astromedia_admin.Validations;
 
 namespace Astromedia_admin.Controllers;
 
@@ -21,15 +22,34 @@ public class AstrosController : Controller
     }
 
     [HttpPost]
-    public IActionResult CadastrarAstro(AstroDTO astroDTO)
+    public async Task<IActionResult> CadastrarAstro(AstroDTO astroDTO)
     {
-        if(ModelState.IsValid)
+        var validator = new AstroValidator();
+        var validationResult = await validator.ValidateAsync(astroDTO);
+
+        if(validationResult.IsValid)
         {
             var astro = new Astro(astroDTO.Nome, astroDTO.Curiosidades, astroDTO.Foto);
             astros.Add(astro);
             return RedirectToAction("Index");
         }
+
+         foreach (var error in validationResult.Errors)
+            ModelState.AddModelError(string.Empty, error.ErrorMessage);
         
-        return View(astroDTO);
+        return View(astroDTO); 
     }
+
+    
+    // public IActionResult CadastrarAstro(AstroDTO astroDTO)
+    // {
+    //     if(ModelState.IsValid)
+    //     {
+    //         var astro = new Astro(astroDTO.Nome, astroDTO.Curiosidades, astroDTO.Foto);
+    //         astros.Add(astro);
+    //         return RedirectToAction("Index");
+    //     }
+        
+    //     return View(astroDTO);
+    // }
 }
